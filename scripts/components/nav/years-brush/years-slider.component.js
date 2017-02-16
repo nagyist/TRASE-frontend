@@ -131,7 +131,7 @@ export default class {
     // var startYear = new Date (d1[0]).getFullYear();
     // var endYear = new Date (d1[1]).getFullYear() - 1;
 
-    this.callback([2015, 2015]);
+    this.callback([2014, 2014]);
   }
 
   _moveBrushOverlay(pixelSelection) {

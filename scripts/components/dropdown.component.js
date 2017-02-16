@@ -54,6 +54,9 @@ export default class {
     const valueTitle =
       this.list.querySelector(`[data-value="${value}"] .js-dropdown-item-title`) ||
       this.list.querySelector(`[data-value="${value}"]`);
+  if (valueTitle === null) {
+    debugger;
+  }
     this.setTitle(valueTitle.innerHTML);
   }
 

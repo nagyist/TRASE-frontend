@@ -17,7 +17,6 @@ export default class {
     // left side
     this.countryDropdown = new Dropdown('country', this.callbacks.onCountrySelected);
     this.commodityDropdown = new Dropdown('commodity', this.callbacks.onCommoditySelected);
-    this.biomeFilterDropdown = new Dropdown('biomeFilter', this.callbacks.onBiomeFilterSelected);
 
     this.yearsDropdown = new Dropdown('years', null);
     this.yearsMenu = new YearsMenu('js-years-slider', this.callbacks.onYearsSelected);
@@ -66,10 +65,6 @@ export default class {
     const title = (years[0] === years[1]) ? years[0] : years.join('&thinsp;-&thinsp;');
     this.yearsDropdown.setTitle(title);
     this.yearsMenu.setYears(years);
-  }
-
-  selectBiomeFilter(value) {
-    this.biomeFilterDropdown.selectValue(value);
   }
 
   selectCountry(value) {

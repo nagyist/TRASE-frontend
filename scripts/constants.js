@@ -34,9 +34,9 @@ export const APP_DEFAULT_STATE = {
 
 export const FLOWS_DEFAULT_STATE = {
   flows: {
-    selectedCountry: 'brazil',
-    selectedCommodity: 'soy',
-    selectedYears: [2015, 2015],
+    selectedCountry: 'indonesia',
+    selectedCommodity: 'oilpalm',
+    selectedYears: [2014, 2014],
     selectedQuant: 'volume',
     detailedView: false,
     // TODO value_type should be inferred from the value, not kept in state
@@ -47,7 +47,7 @@ export const FLOWS_DEFAULT_STATE = {
     selectedNodesColorGroups: [],
     areNodesExpanded: false,
     selectedNodesData: [],
-    selectedColumnsIds: [3, 4, 6, 7],
+    selectedColumnsIds: [0, 1, 2, 3],
     // TODO title should be inferred from the uid, not kept in state
     selectedVectorLayers: {
       horizontal: {

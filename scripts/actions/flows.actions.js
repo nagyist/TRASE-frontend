@@ -129,8 +129,8 @@ export function loadInitialData() {
       });
       dispatch(loadNodes());
       dispatch(loadLinks());
-      dispatch(loadMapVectorLayers());
-      dispatch(loadMapContextLayers());
+      // dispatch(loadMapVectorLayers());
+      // dispatch(loadMapContextLayers());
     });
   };
 }
