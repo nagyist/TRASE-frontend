@@ -44,6 +44,7 @@ export default class {
     if (payload.selectedNodesGeoIds) {
       this.selectPolygons(payload.selectedNodesGeoIds);
     }
+    // TODO if (payload.linkedGeoIds)...
   }
 
   selectPolygons(geoIds) {

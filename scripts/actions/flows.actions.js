@@ -420,37 +420,41 @@ export function searchNode(nodeId) {
 }
 
 export function loadLinkedGeoIDs() {
-  return () => {};
   //TODO: pending https://github.com/sei-international/TRASE/issues/165
-  // return (dispatch, getState) => {
-  //   return;
-  //   const selectedNodesIds = getState().flows.selectedNodesIds;
-  //   if (selectedNodesIds.length === 0) {
-  //     dispatch({
-  //       type: actions.GET_LINKED_GEOIDS,
-  //       payload: {data:{}}
-  //     });
-  //     return;
-  //   }
-  //   dispatch({
-  //     type: actions.LOAD_MAP
-  //   });
-  //   const params = {
-  //     node_ids: selectedNodesIds.join(','),
-  //     column_id: getState().flows.selectedColumnsIds[0]
-  //   };
-  //   // const url = getURLFromParams('/v1/get_linked_geoids', params);
-  //   const url = 'get_linked_geoids.json';
-  //
-  //   fetch(url)
-  //     .then(res => res.text())
-  //     .then(payload => {
-  //       dispatch({
-  //         type: actions.GET_LINKED_GEOIDS,
-  //         payload: JSON.parse(payload)
-  //       });
-  //     });
-  // };
+  return (dispatch, getState) => {
+    const selectedNodesIds = getState().flows.selectedNodesIds;
+    if (selectedNodesIds.length === 0) {
+      dispatch({
+        type: actions.GET_LINKED_GEOIDS,
+        payload: []
+      });
+      return;
+    }
+    dispatch({
+      type: actions.LOAD_MAP
+    });
+    // const params = {
+    //   node_ids: selectedNodesIds.join(','),
+    //   column_id: getState().flows.selectedColumnsIds[0]
+    // };
+    // const url = getURLFromParams('/v1/get_linked_geoids', params);
+    const url = 'get_linked_geoids.json';
+    // const url = 'https://staging.trase.earth/api/v2/get_linked_geoids?country=brazil&commodity=soy&target_column_id=1&year%5B%5D=2015';
+    // const params = new URLSearchParams();
+    // params.append('node_id[]', 1000);
+    // params.append('node_id[]', 2002);
+
+
+    // fetch(`${url}&${params.toString()}`)
+    fetch(url)
+      .then(res => res.text())
+      .then(payload => {
+        dispatch({
+          type: actions.GET_LINKED_GEOIDS,
+          payload: JSON.parse(payload)
+        });
+      });
+  };
 }
 
 const _isNodeVisible = (getState, nodeId) => getState().flows.visibleNodes.map(node => node.id).indexOf(nodeId) > -1;
