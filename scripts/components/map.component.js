@@ -31,16 +31,16 @@ export default class {
   }
 
   showLoadedMap(payload) {
-    const geoData = payload.geoData;
-    // TODO this statically maps vectorLayers indexes to column indexes, it should be dynamic
-    let municipalitiesLayer = this._getVectorLayer(geoData.MUNICIPALITY, 'map-polygon-municipality');
-    this.vectorLayers = [
-      this._getVectorLayer(geoData.BIOME, 'map-polygon-biome'),
-      this._getVectorLayer(geoData.STATE, 'map-polygon-state'),
+    const mapVectorData = payload.mapVectorData;
+    // TODO this statically maps polygonTypesLayers indexes to column indexes, it should be dynamic
+    let municipalitiesLayer = this._getPolygonTypeLayer(mapVectorData.MUNICIPALITY, 'map-polygon-municipality');
+    this.polygonTypesLayers = [
+      this._getPolygonTypeLayer(mapVectorData.BIOME, 'map-polygon-biome'),
+      this._getPolygonTypeLayer(mapVectorData.STATE, 'map-polygon-state'),
       municipalitiesLayer, // logistics hubs
       municipalitiesLayer // municipalities
     ];
-    this.selectVectorLayer([payload.currentLayer]);
+    this.selectPolygonType([payload.currentPolygonType]);
     if (payload.selectedNodesGeoIds) {
       this.selectPolygons(payload.selectedNodesGeoIds);
     }
@@ -56,14 +56,14 @@ export default class {
   }
 
   _paintPolygons(geoIds, targetLayer, className) {
-    if (!this.currentLayer) {
+    if (!this.currentPolygonTypeLayer) {
       return;
     }
 
     if (targetLayer) this.map.removeLayer(targetLayer);
 
     const selectedFeatures = [];
-    this.currentLayer.eachLayer(layer => {
+    this.currentPolygonTypeLayer.eachLayer(layer => {
       if (geoIds.indexOf(layer.feature.properties.geoid) > - 1) {
         selectedFeatures.push(layer.feature);
       }
@@ -82,7 +82,7 @@ export default class {
 
   // TODO use _paintPolygons
   highlightPolygon(geoIds) {
-    if (!this.currentLayer) {
+    if (!this.currentPolygonTypeLayer) {
       return;
     }
 
@@ -90,7 +90,7 @@ export default class {
 
     if (geoIds.length > 0) {
       const geoId = geoIds[0];
-      this.currentLayer.eachLayer(layer => {
+      this.currentPolygonTypeLayer.eachLayer(layer => {
         if (geoId === layer.feature.properties.geoid) {
           // polygon appears 'burried', and SVG does nto support z-indexes
           // so we have to recreate the hover layer on top of all other polygons
@@ -102,15 +102,15 @@ export default class {
     }
   }
 
-  selectVectorLayer(columnIds) {
-    if (!this.vectorLayers) return;
+  selectPolygonType(columnIds) {
+    if (!this.polygonTypesLayers) return;
     const id = columnIds[0];
-    if (this.currentLayer) {
-      this.map.removeLayer(this.currentLayer);
+    if (this.currentPolygonTypeLayer) {
+      this.map.removeLayer(this.currentPolygonTypeLayer);
     }
 
-    this.currentLayer = this.vectorLayers[id];
-    this.map.addLayer(this.currentLayer);
+    this.currentPolygonTypeLayer = this.polygonTypesLayers[id];
+    this.map.addLayer(this.currentPolygonTypeLayer);
   }
 
   loadContextLayers(selectedMapContextualLayersData) {
@@ -186,7 +186,7 @@ export default class {
     // }
   }
 
-  _getVectorLayer(geoJSON, polygonClassName) {
+  _getPolygonTypeLayer(geoJSON, polygonClassName) {
     var topoLayer = new L.GeoJSON(geoJSON, {
       pane: 'main'
     });
@@ -236,7 +236,7 @@ export default class {
   }
 
   setChoropleth(choropleth) {
-    this.currentLayer.eachLayer(layer => {
+    this.currentPolygonTypeLayer.eachLayer(layer => {
       const choroItem = choropleth[layer.feature.properties.geoid];
       // TODO use CSS classes instead
       if (choroItem) {
