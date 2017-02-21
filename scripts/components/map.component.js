@@ -24,6 +24,11 @@ export default class {
     this.map.createPane('context_above');
     this.map.getPane('context_above').style.zIndex = 601;
 
+    this.overlays = {
+      linked: null, // linked filled polygons
+      outlines: null // selected and hover styles
+    };
+
     this.contextLayers = [];
 
     document.querySelector('.js-basemap-switcher').addEventListener('click', () => { this.callbacks.onToggleMapLayerMenu(); });
