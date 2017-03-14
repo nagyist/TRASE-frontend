@@ -1,8 +1,8 @@
 import connect from 'connect';
-import Search from 'components/tooltip.component.js';
+import Tooltip from 'components/tooltip.component.js';
 
 const mapMethodsToState = (state) => ({
   checkTooltip: state.app.tooltipCheck,
 });
 
-export default connect(Search, mapMethodsToState);
+export default connect(Tooltip, mapMethodsToState);
