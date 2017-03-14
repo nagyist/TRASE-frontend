@@ -21,11 +21,6 @@ export default class {
         position: 'bottom left'
       });
 
-      /*new Tooltip(tooltip, {
-        title: tooltip.getAttribute('data-tooltip-text'),
-        trigger: 'click',
-        template: '<div	class="c-tooltip" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner"></div></div>'
-      });*/
       tooltip.setAttribute('data-tooltip-load', '1');
     });
   }
