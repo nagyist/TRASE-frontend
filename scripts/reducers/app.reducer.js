@@ -5,7 +5,8 @@ const initialState = {
   isMapLayerVisible: false,
   isMapVisible: false,
   isAppMenuVisible: false,
-  tooltipCheck: 0
+  tooltipCheck: 0,
+  tooltips: []
 };
 
 export default function (state = initialState, action) {
@@ -22,6 +23,9 @@ export default function (state = initialState, action) {
 
     case actions.LOAD_TOOLTIP:
       return Object.assign({}, state, { tooltipCheck: (state.tooltipCheck || 0) + 1 });
+
+    case actions.SET_TOOLTIPS:
+      return Object.assign({}, state, { tooltips: action.payload });
 
     default:
       return state;

@@ -10,7 +10,8 @@ import {
   GET_NODES,
   GET_LINKED_GEO_IDS,
   GET_MAP_BASE_DATA,
-  GET_CONTEXTS
+  GET_CONTEXTS,
+  GET_TOOLTIPS
 } from 'utils/getURLFromParams';
 import mapContextualLayers from './map/context_layers';
 import getNodeIdFromGeoId from './helpers/getNodeIdFromGeoId';
@@ -120,6 +121,16 @@ export function loadInitialData() {
     });
 
     const contextURL = getURLFromParams(GET_CONTEXTS);
+    const tooltipsURL = getURLFromParams(GET_TOOLTIPS);
+
+    fetch(tooltipsURL).then(resp => resp.text()).then(data => {
+      const payload = JSON.parse(data);
+
+      // load contexts
+      dispatch({
+        type: actions.SET_TOOLTIPS, payload
+      });
+    });
 
     fetch(contextURL).then(resp => resp.text()).then(data => {
       const payload = JSON.parse(data).data;
