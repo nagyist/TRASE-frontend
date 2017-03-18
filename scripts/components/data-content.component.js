@@ -159,11 +159,11 @@ export default class {
   }
 
   _unlockDownloadButton() {
-    this.downloadButton.classList.remove('-disabled')
+    this.downloadButton.classList.remove('-disabled');
   }
 
   _lockDownloadButton() {
-    this.downloadButton.classList.add('-disabled')
+    this.downloadButton.classList.add('-disabled');
   }
 
   _onToggleRadio(e) {
